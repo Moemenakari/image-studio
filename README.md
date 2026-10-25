@@ -1,4 +1,4 @@
-` AI Image Generation Studio
+# AI Image Generation Studio
 
 **DecodeLabs Generative AI Internship — Project 3**
 
@@ -6,7 +6,7 @@ A text-to-image studio with a **web interface (Streamlit)** and a **command-line
 
 It works out of the box with the free **Pollinations (FLUX)** API — no key needed — and also supports **Stability AI (Stable Image Core)**.
 
-`` Features
+## Features
 - **Aspect ratio → exact pixels** — user choices are mapped to sizes the models accept (`16:9 → 1344×768`, `1:1 → 1024×1024`, `9:16 → 768×1344`…)
 - **Style presets** — photorealistic, digital art, cyberpunk, minimalist, watercolor, anime
 - **Multiple images** (1–4) with different seeds, or a fixed seed for repeatable results
@@ -22,7 +22,7 @@ It works out of the box with the free **Pollinations (FLUX)** API — no key nee
 
 > **Note on the free tier:** Pollinations may return images smaller than requested (e.g. 1015×580 for a 1344×768 request) while keeping the aspect ratio. The real size is checked and saved in `metadata.json`. Stability AI returns full resolution.
 
-`` How It Works
+## How It Works
 ```
 INPUT                          PROCESS                               OUTPUT
 prompt + style       →   request with split timeouts      →   stream to disk (64 KB chunks)
@@ -30,7 +30,7 @@ aspect ratio → pixels    retry with backoff + jitter           full pixel deco
 count / seed             safety-block detection                save image + metadata.json
 ```
 
-`` Setup
+## Setup
 Requires Python 3.10+.
 ```bash
 git clone https://github.com/Moemenakari/image-studio.git
@@ -43,7 +43,7 @@ IMAGE_PROVIDER=stability
 STABILITY_API_KEY=your_key_here
 ```
 
-`` Usage
+## Usage
 **Web app:**
 ```bash
 streamlit run app.py
@@ -57,14 +57,14 @@ python generate.py "a futuristic Beirut skyline" --style cyberpunk --negative "b
 ```
 Images are saved in `outputs/<timestamp>/`.
 
-`` Tests
+## Tests
 The tests use a fake network session, so they run offline:
 ```bash
 python -m unittest test_studio.py
 ```
 They cover: aspect-ratio mapping, input validation, multiple seeds, split timeouts and streaming, retrying a busy server (429/5xx) or a full free tier (402 with `Retry-After`), rejecting non-image responses, detecting and retrying a truncated image, not retrying safety blocks, and failing fast on connection timeouts.
 
-`` Project Structure
+## Project Structure
 ```
 app.py               Streamlit web interface
 generate.py          command-line interface
@@ -73,8 +73,8 @@ studio/pipeline.py   request building, providers, streaming, verification, retri
 test_studio.py       unit tests
 ```
 
-`` Tech Stack
+## Tech Stack
 Python · Streamlit · Requests · Pillow · Pollinations (FLUX) / Stability AI
 
-`` Author
+## Author
 **Mouemen Akkarie** — [GitHub](https://github.com/Moemenakari)
